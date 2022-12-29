@@ -109,12 +109,15 @@ function adresKartiOlustur(obje) {
 
 const cardsDiv = document.querySelector(".cards");
 
-axios
-  .get("https://apis.ergineer.com/ipgeoapi/188.3.79.86")
-  .then((response) => {
-    cardsDiv.appendChild(adresKartiOlustur(response.data));
-    console.log(response);
-  })
-  .catch((error) => {
-    console.log("Error: " + error);
-  });
+const connection = async function () {
+  await ipAdresimiAl();
+  axios
+    .get("https://apis.ergineer.com/ipgeoapi/" + benimIP)
+    .then((response) => {
+      cardsDiv.appendChild(adresKartiOlustur(response.data));
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+};
+connection();
